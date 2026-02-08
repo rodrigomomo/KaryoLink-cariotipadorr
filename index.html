@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    
+    <!-- SEO & AI Optimization (Invisible) -->
+    <title>KaryoLink - IA para Diagnóstico Citogenético y Oncohematología</title>
+    <meta name="description" content="KaryoLink: Software de Inteligencia Artificial especializado en citogenética clínica. Automatización de cariotipos para laboratorios de oncohematología.">
+    <meta name="keywords" content="citogenética, IA, cariotipo, oncohematología, diagnóstico genético, automatización de laboratorio">
+    <meta name="author" content="KaryoLink">
+    
+    <!-- Open Graph for Social/AI Preview -->
+    <meta property="og:title" content="KaryoLink - IA para Diagnóstico Citogenético">
+    <meta property="og:description" content="Automatiza la clasificación de cariotipos y acelera los informes médicos con precisión clínica.">
+    <meta property="og:type" content="website">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "KaryoLink",
+      "applicationCategory": "MedicalSoftware",
+      "operatingSystem": "Web",
+      "description": "Plataforma de IA para la clasificación automática de metafases y diagnóstico citogenético.",
+      "author": {
+        "@type": "Organization",
+        "name": "KaryoLink"
+      }
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        :root {
+            --bg-dark: #0d1117;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(at 0% 0%, rgba(30, 64, 175, 0.15) 0%, transparent 50%),
+                              radial-gradient(at 100% 100%, rgba(30, 64, 175, 0.15) 0%, transparent 50%);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .glass-header {
+            background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Estilo Biotecnológico Neon Potenciado */
+        .neon-stat-card {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 640px) {
+            .neon-stat-card {
+                flex-direction: row;
+            }
+        }
+
+        .glow-section {
+            position: relative;
+        }
+        .glow-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .neon-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, currentColor, transparent);
+            opacity: 0.8;
+        }
+
+        .neon-blue { 
+            color: #60a5fa;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1), inset 0 0 15px rgba(59, 130, 246, 0.05); 
+            border-color: rgba(59, 130, 246, 0.3); 
+        }
+        .neon-purple { 
+            color: #a78bfa;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.1), inset 0 0 15px rgba(139, 92, 246, 0.05); 
+            border-color: rgba(139, 92, 246, 0.3); 
+        }
+        .neon-emerald { 
+            color: #34d399;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1), inset 0 0 15px rgba(16, 185, 129, 0.05); 
+            border-color: rgba(16, 185, 129, 0.3); 
+        }
+        .neon-indigo { 
+            color: #818cf8;
+            box-shadow: 0 0 20px rgba(129, 140, 248, 0.1), inset 0 0 15px rgba(129, 140, 248, 0.05); 
+            border-color: rgba(129, 140, 248, 0.3); 
+        }
+
+        .neon-stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(17, 24, 39, 0.9);
+            box-shadow: 0 0 40px currentColor;
+            border-color: currentColor;
+        }
+
+        /* Estilos específicos para la sección de Pasos */
+        .step-card {
+            background: linear-gradient(145deg, rgba(31, 41, 55, 0.7) 0%, rgba(17, 24, 39, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s ease;
+        }
+        .step-card:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+        }
+        .step-number {
+            font-size: 5rem;
+            line-height: 1;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, transparent 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            pointer-events: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #1e40af 0%, #3b82f6 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary:active { transform: scale(0.98); }
+
+        .hero-title {
+            hyphens: none;
+            word-break: keep-all;
+            overflow-wrap: normal;
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.1rem !important;
+                line-height: 1.2;
+            }
+        }
+    </style>
+</head>
+<body class="text-white antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass-header border-b border-gray-800">
+        <nav class="container mx-auto px-4 py-3 sm:py-4 flex justify-between items-center" aria-label="Navegación principal">
+            <a href="#" class="flex items-center space-x-2 text-lg sm:text-xl font-black tracking-tighter" title="KaryoLink Inicio">
+                <span class="text-blue-500">KARYO</span>LINK
+            </a>
+            <div class="hidden md:flex space-x-6 lg:space-x-8 text-sm font-medium text-gray-400">
+                <a href="#rendimiento" class="hover:text-white transition-colors">Rendimiento</a>
+                <a href="#solucion" class="hover:text-white transition-colors">Solución</a>
+                <a href="#asistente" class="hover:text-white transition-colors">Asistente</a>
+                <a href="#equipo" class="hover:text-white transition-colors">Equipo</a>
+                <a href="#contacto" class="hover:text-white transition-colors">Contacto</a>
+            </div>
+            <a href="https://wa.me/34665241647" class="btn-primary px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap" aria-label="Contactar con KaryoLink por WhatsApp">
+                Contactar
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- SECCIÓN 1: Rendimiento y Desafíos -->
+        <section id="rendimiento" class="py-16 md:py-32 bg-gray-950 px-4 glow-section overflow-hidden">
+            <div class="container mx-auto max-w-6xl relative z-10">
+                <header class="text-center mb-12 md:mb-16">
+                    <h2 class="text-2xl sm:text-4xl md:text-5xl font-black mb-4 text-white px-2 leading-tight uppercase tracking-tighter">Supera los desafíos del diagnóstico actual</h2>
+                    <p class="text-blue-400 font-bold tracking-widest uppercase text-[10px] sm:text-xs mb-4">Eficiencia sin precedentes en Citogenética</p>
+                    <div class="h-1 w-24 sm:w-32 bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 mx-auto shadow-[0_0_15px_rgba(59,130,246,0.6)]"></div>
+                </header>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
+                    <article class="neon-stat-card neon-blue items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6 p-6 sm:p-8 rounded-3xl group">
+                        <div class="bg-blue-500/10 p-4 rounded-2xl text-blue-400 shrink-0 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <div class="text-center sm:text-left">
+                            <h3 class="text-lg sm:text-2xl font-black text-white mb-2 sm:mb-3">Máximo Rendimiento</h3>
+                            <p class="text-gray-400 text-xs sm:text-sm leading-relaxed">Elimina el techo productivo limitado. La IA automatiza la clasificación, procesando más casos en menos tiempo.</p>
+                        </div>
+                    </article>
+
+                    <article class="neon-stat-card neon-emerald items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6 p-6 sm:p-8 rounded-3xl group">
+                        <div class="bg-emerald-500/10 p-4 rounded-2xl text-emerald-400 shrink-0 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04kM12 21.355"/></svg>
+                        </div>
+                        <div class="text-center sm:text-left">
+                            <h3 class="text-lg sm:text-2xl font-black text-white mb-2 sm:mb-3">Fiabilidad Aumentada</h3>
+                            <p class="text-gray-400 text-xs sm:text-sm leading-relaxed">Entrenada con +10,000 muestras, minimiza errores de revisión y mejora la fiabilidad de cada diagnóstico.</p>
+                        </div>
+                    </article>
+
+                    <article class="neon-stat-card neon-purple items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6 p-6 sm:p-8 rounded-3xl group">
+                        <div class="bg-purple-500/10 p-4 rounded-2xl text-purple-400 shrink-0 group-hover:bg-purple-500 group-hover:text-white transition-all">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div class="text-center sm:text-left">
+                            <h3 class="text-lg sm:text-2xl font-black text-white mb-2 sm:mb-3">Clasificación Ágil</h3>
+                            <p class="text-gray-400 text-xs sm:text-sm leading-relaxed">Karyolink clasifica tus metafases en minutos, acelerando tu proceso interno de diagnóstico.</p>
+                        </div>
+                    </article>
+
+                    <article class="neon-stat-card neon-indigo items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6 p-6 sm:p-8 rounded-3xl group">
+                        <div class="bg-indigo-500/10 p-4 rounded-2xl text-indigo-400 shrink-0 group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        </div>
+                        <div class="text-center sm:text-left">
+                            <h3 class="text-lg sm:text-2xl font-black text-white mb-2 sm:mb-3">Menos Fatiga Visual</h3>
+                            <p class="text-gray-400 text-xs sm:text-sm leading-relaxed">Al automatizar lo repetitivo, reducimos la carga visual y el agotamiento en tareas de alta precisión.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Solución -->
+        <section id="solucion" class="py-16 md:py-24 bg-gray-950 px-4">
+            <div class="container mx-auto max-w-6xl text-center mb-12">
+                <h2 class="text-2xl sm:text-4xl font-black mb-4 px-4 text-white uppercase tracking-tight">Especialistas para especialistas</h2>
+                <p class="text-gray-400 text-xs sm:text-base max-w-2xl mx-auto px-4 leading-relaxed">Nacido en un laboratorio real con más de 20 años de trayectoria. No somos solo software; somos citogenetistas.</p>
+            </div>
+            
+            <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 md:gap-6 mb-16 px-2 max-w-5xl">
+                <article class="neon-stat-card neon-blue p-6 sm:p-8 rounded-2xl text-center sm:text-left">
+                    <h4 class="font-black mb-3 text-base sm:text-lg">Dataset Exclusivo</h4>
+                    <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">Entrenado con <strong class="text-white">10.000+ imágenes reales</strong> de oncohematología compleja.</p>
+                </article>
+                <article class="neon-stat-card neon-purple p-6 sm:p-8 rounded-2xl text-center sm:text-left">
+                    <h4 class="font-black mb-3 text-base sm:text-lg">Precisión Validada</h4>
+                    <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">Modelos que alcanzan un <strong class="text-white">93% de precisión</strong> en detección inicial.</p>
+                </article>
+                <article class="neon-stat-card neon-emerald p-6 sm:p-8 rounded-2xl text-center sm:text-left">
+                    <h4 class="font-black mb-3 text-base sm:text-lg">Despliegue Web</h4>
+                    <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">Plataforma lista para funcionar hoy mismo en cualquier laboratorio.</p>
+                </article>
+                <article class="neon-stat-card neon-indigo p-6 sm:p-8 rounded-2xl text-center sm:text-left border-indigo-500/40">
+                    <h4 class="font-black mb-3 text-base sm:text-lg">Experiencia Senior</h4>
+                    <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">Más de <strong class="text-white">25 años de experiencia</strong> clínica en el diagnóstico citogenético especializado.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Cómo Funciona -->
+        <section class="py-20 md:py-32 bg-gray-950 px-4 relative overflow-hidden">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_70%)] pointer-events-none"></div>
+
+            <div class="container mx-auto max-w-6xl relative z-10">
+                <div class="text-center mb-16 md:mb-24">
+                    <h2 class="text-3xl md:text-5xl font-black mb-6 text-white tracking-tighter uppercase italic">
+                        Tres pasos hacia la <span class="text-blue-500">eficiencia diagnóstica</span>
+                    </h2>
+                    <div class="h-1.5 w-40 bg-blue-600 mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                    <div class="step-card relative p-10 rounded-[2.5rem] flex flex-col items-center md:items-start text-center md:text-left group">
+                        <div class="step-number group-hover:text-blue-500/20 transition-colors">01</div>
+                        <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(59,130,246,0.5)] transform -rotate-6 group-hover:rotate-0 transition-transform">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                        </div>
+                        <h4 class="text-2xl font-black mb-4 text-white">Digitalización</h4>
+                        <p class="text-gray-400 leading-relaxed text-sm md:text-base">Sube la imagen del cariotipo a la nube segura de <span class="text-blue-400 font-bold">KaryoLink</span> con cifrado de grado médico.</p>
+                    </div>
+
+                    <div class="step-card relative p-10 rounded-[2.5rem] flex flex-col items-center md:items-start text-center md:text-left group border-t-2 border-t-blue-500/30">
+                        <div class="step-number group-hover:text-purple-500/20 transition-colors">02</div>
+                        <div class="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(168,85,247,0.5)] transform rotate-6 group-hover:rotate-0 transition-transform">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                        </div>
+                        <h4 class="text-2xl font-black mb-4 text-white">Análisis IA</h4>
+                        <p class="text-gray-400 leading-relaxed text-sm md:text-base">Nuestro modelo de Deep Learning detecta anomalías específicas y ordena los cromosomas en <span class="text-purple-400 font-bold">segundos</span>.</p>
+                    </div>
+
+                    <div class="step-card relative p-10 rounded-[2.5rem] flex flex-col items-center md:items-start text-center md:text-left group border-t-2 border-t-emerald-500/30">
+                        <div class="step-number group-hover:text-emerald-500/20 transition-colors">03</div>
+                        <div class="w-16 h-16 bg-emerald-600 rounded-2xl flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(16,185,129,0.5)] transform -rotate-3 group-hover:rotate-0 transition-transform">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <h4 class="text-2xl font-black mb-4 text-white">Validación</h4>
+                        <p class="text-gray-400 leading-relaxed text-sm md:text-base">Revisa el <span class="text-emerald-400 font-bold underline">informe preliminar</span> generado automáticamente y <span class="text-emerald-400 font-bold">confirma</span> los hallazgos críticos con un solo clic.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Cariotipador Asistido por IA -->
+        <section id="asistente" class="py-20 bg-gray-900 border-y border-gray-800 px-4">
+            <div class="container mx-auto max-w-4xl text-center">
+                <div class="mb-2">
+                    <span class="text-blue-500 text-lg font-black tracking-widest uppercase">karyoLink ia</span>
+                </div>
+                <div class="inline-block bg-blue-600/10 border border-blue-500/20 px-4 py-1.5 rounded-full mb-6">
+                    <span class="text-blue-400 text-xs font-bold uppercase tracking-widest">Tecnología de Vanguardia</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-black mb-8 text-white uppercase tracking-tight">Cariotipador Asistido por IA</h2>
+                <p class="text-lg md:text-2xl text-gray-300 leading-relaxed font-light italic">
+                    El software de Karyolink clasifica tu cariotipo en minutos, aumentando la velocidad de diagnóstico y permitiendo a tu laboratorio duplicar su capacidad de procesamiento.
+                </p>
+                <div class="mt-12 flex justify-center space-x-4">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                    <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse [animation-delay:200ms]"></div>
+                    <div class="w-2 h-2 bg-blue-300 rounded-full animate-pulse [animation-delay:400ms]"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Liderazgo Científico -->
+        <section id="equipo" class="py-16 md:py-24 bg-gray-950 px-4">
+            <div class="container mx-auto max-w-6xl text-center">
+                <h2 class="text-2xl sm:text-4xl font-black mb-4 text-white uppercase tracking-tight">Liderazgo Científico</h2>
+                <div class="h-1 w-16 sm:w-24 bg-indigo-500 mx-auto mb-10"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
+                    <article class="neon-stat-card neon-indigo p-6 sm:p-8 rounded-2xl text-left">
+                        <div class="flex items-center space-x-4 mb-5">
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-indigo-900/50 border border-indigo-400/30 flex items-center justify-center text-indigo-300 font-black text-xl sm:text-2xl shadow-[0_0_10px_rgba(129,140,248,0.2)]">
+                                NV
+                            </div>
+                            <div>
+                                <h4 class="font-black text-lg sm:text-xl text-white">Natalia Velosoz</h4>
+                                <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-400">Co-Fundadora & CEO</p>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-gray-400 leading-relaxed italic">
+                            "Ningún paciente debería esperar un mes para un diagnóstico que la tecnología actual puede acelerar significativamente."
+                        </p>
+                    </article>
+
+                    <article class="neon-stat-card neon-indigo p-6 sm:p-8 rounded-2xl text-left">
+                        <div class="flex items-center space-x-4 mb-5">
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-indigo-900/50 border border-indigo-400/30 flex items-center justify-center text-indigo-300 font-black text-xl sm:text-2xl shadow-[0_0_10px_rgba(129,140,248,0.2)]">
+                                PR
+                            </div>
+                            <div>
+                                <h4 class="font-black text-lg sm:text-xl text-white">Pepa Romero</h4>
+                                <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-400">Co-Fundadora & CTO</p>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-gray-400 leading-relaxed italic">
+                            "Hemos volcado 25 años de conocimiento biológico en algoritmos que entienden la complejidad real de una muestra."
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section id="contacto" class="py-16 md:py-24 bg-blue-600 px-4">
+            <div class="container mx-auto max-w-3xl text-center">
+                <h2 class="text-2xl sm:text-4xl font-black mb-6 text-white px-2 uppercase tracking-tighter">¿Quieres implementar KaryoLink?</h2>
+                <p class="text-base sm:text-xl mb-10 text-blue-100">Contacta con nuestro equipo científico para una valoración personalizada.</p>
+                <div class="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl text-left text-gray-900">
+                    <form id="contact-form" class="space-y-4 sm:space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <label class="block">
+                                <span class="sr-only">Nombre</span>
+                                <input type="text" placeholder="Nombre" required class="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-blue-600 transition-colors text-sm">
+                            </label>
+                            <label class="block">
+                                <span class="sr-only">Email</span>
+                                <input type="email" placeholder="Email" required class="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-blue-600 transition-colors text-sm">
+                            </label>
+                        </div>
+                        <label class="block">
+                            <span class="sr-only">Información sobre tu centro</span>
+                            <textarea placeholder="Cuéntanos sobre tu centro o laboratorio..." rows="3" required class="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-blue-600 transition-colors text-sm resize-none"></textarea>
+                        </label>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-sm sm:text-base hover:bg-blue-700 transition-all uppercase tracking-widest shadow-lg">
+                            Enviar Solicitud por WhatsApp
+                        </button>
+                    </form>
+                    <div id="success-msg" class="hidden text-center py-6">
+                        <div class="text-blue-600 text-4xl mb-4">✓</div>
+                        <h3 class="text-xl font-bold">Abriendo WhatsApp...</h3>
+                        <p class="text-gray-500 text-xs mt-1">Te estamos redirigiendo para conversar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-10 bg-gray-950 border-t border-gray-900 px-4">
+        <div class="container mx-auto flex flex-col items-center text-center space-y-6">
+            <a href="#" class="text-xl font-black tracking-tighter text-white">
+                <span class="text-blue-500">KARYO</span>LINK
+            </a>
+            <div class="text-gray-600 text-[10px] sm:text-xs space-y-2">
+                <p>📍 Málaga, España | 📧 info@karyolink.com</p>
+                <p class="font-medium text-blue-400/80 tracking-wide uppercase">Ecosistema Polo Digital</p>
+                <p class="font-bold uppercase tracking-widest pt-4">© 2025 KaryoLink. Especialistas en Citogenética Clínica.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.getElementById('contact-form');
+        const success = document.getElementById('success-msg');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            form.classList.add('hidden');
+            success.classList.remove('hidden');
+            setTimeout(() => {
+                window.location.href = "https://wa.me/34665241647";
+            }, 500);
+        });
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.style.backgroundColor = 'rgba(13, 17, 23, 0.98)';
+            } else {
+                header.style.backgroundColor = 'rgba(13, 17, 23, 0.85)';
+            }
+        });
+    </script>
+</body>
+</html>
